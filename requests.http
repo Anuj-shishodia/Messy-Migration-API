@@ -1,0 +1,51 @@
+### Get all users
+GET http://localhost:5009/users HTTP/1.1
+
+### Get a specific user (ID 1 for John Doe, adjust as needed)
+GET http://localhost:5009/user/1 HTTP/1.1
+
+### Create a new user
+# Note: If you run init_db.py multiple times, the initial users might have raw passwords.
+# New users created via this POST request will have hashed passwords.
+# The login endpoint will work for new users and initial users (if init_db has hashed them).
+POST http://localhost:5009/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Alice Wonderland",
+    "email": "alice@example.com",
+    "password": "alicepassword"
+}
+
+### Login a user (test with initial user 'john@example.com' and 'password123')
+POST http://localhost:5009/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "john@example.com",
+    "password": "password123"
+}
+
+### Login a newly created user (e.g., alice@example.com)
+POST http://localhost:5009/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "alice@example.com",
+    "password": "alicepassword"
+}
+
+### Update a user (replace 1 with an actual ID)
+PUT http://localhost:5009/user/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Johnathan Doe",
+    "email": "john.doe.updated@example.com"
+}
+
+### Search users by name
+GET http://localhost:5009/search?name=John HTTP/1.1
+
+### Delete a user (replace X with an actual ID from your /users list, e.g., Alice's ID)
+DELETE http://localhost:5009/user/4 HTTP/1.1
